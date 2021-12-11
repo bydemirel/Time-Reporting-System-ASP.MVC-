@@ -1,0 +1,85 @@
+@model User
+
+@{
+  ViewData["Title"] = "Login";
+  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VSCODEPROJECT.styles.css" asp-append-version="true" />
+
+</head>
+
+<body>
+
+@using (Html.BeginForm("Subscribe", "Home", FormMethod.Post))
+{
+
+  <div class="row" style="text-align: center; margin-top: 3%">
+    <div class="col-md-12">
+      <b>Please Enter Your Username</b>
+    </div>
+  </div>
+
+  <div class="row" style="text-align: center; margin-top: 0.5%">
+    <div class="col-md-12">
+      @Html.TextBoxFor(Model=>Model.UserName)
+    </div>
+  </div>
+
+  <div class="row" style="text-align: center; margin-top: 0.25%">
+    <div class="col-md-12">
+      <input type="submit" id="submitId" value="Login"/>  
+    </div>
+  </div>
+
+}
+
+ @if(!ViewBag.haveUserName)
+{
+      <script type="text/javascript">  
+            window.onload = function () {  
+                alert("PLEASE, ENTER A VALID USER NAME!");  
+            };  
+        </script>  
+}
+
+<style>
+    #submitId:hover {
+                background-color: #3557db;
+            }
+
+            #submitId {
+                background-color: #0066ff;
+                text-decoration: white;
+                color: white;
+                height: 100%;
+                width: auto;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 7px;
+                padding-bottom: 7px;
+                height: auto;
+                margin-top: 1%;
+                border: 1px solid #CCC;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px; 
+            }
+</style>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+
+</html>

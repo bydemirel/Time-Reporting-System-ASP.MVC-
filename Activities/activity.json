@@ -1,0 +1,22 @@
+{
+  "Activities": [
+    {
+      "Code": "ARGUS-123",
+      "Manager": "nowak",
+      "Name": "Argus",
+      "Budget": 125
+    },
+    {
+      "Code": "OTHER",
+      "Manager": "smith",
+      "Name": "Other",
+      "Budget": 60
+    },
+    {
+      "Code": "MARCUS-123",
+      "Manager": "marcus",
+      "Name": "Marcus",
+      "Budget": 85
+    }
+  ]
+}

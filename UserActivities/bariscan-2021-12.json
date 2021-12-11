@@ -1,0 +1,16 @@
+{
+  "Entries": [
+    {
+      "Date": "2021-12-09",
+      "Code": "ARGUS-123",
+      "Time": 35,
+      "Description": "coding exercise"
+    },
+    {
+      "Date": "2021-12-10",
+      "Code": "MARCUS-123",
+      "Time": 30,
+      "Description": "Do sport"
+    }
+  ]
+}

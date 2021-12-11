@@ -1,0 +1,80 @@
+﻿@using VSCODEPROJECT.Controllers
+
+@model ProjectListView
+
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+@{
+    string current_user = HomeController.getCurrentUser();
+    string current_user_tag = HomeController.getCurrentUserTag();
+    string date = HomeController.getDate();
+}
+
+<div class="text-center" style="margin-top: 1.5%; margin-bottom: 8%;">
+    <h1 class="display-6">Current User: @current_user @current_user_tag Year-Month: @date</h1>
+    @using (Html.BeginForm("CreateNewProject", "Home", FormMethod.Get))
+    {
+        <input type="submit" id="submitId" , value="Create New Project" />
+    }
+</div>
+
+
+
+<div>
+    <div class="row" style="text-align: center; align-items: center;">
+        <div class="col-md-12">
+            <table class="table">
+                <!--table classı sayesinde table şekilli duruyor-->
+                <tr>
+                    <th>Project Codes</th>
+                    <th>Project Managers</th>
+                    <th>Project Names</th>
+                    <th>Project Budgets</th>
+                </tr>
+
+                @foreach (var item in Model.Activities)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Manager)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modeltem => item.Budget)</td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    #submitId:hover {
+        background-color: #3557db;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+
+    #submitId {
+        background-color: #0066ff;
+        text-decoration: white;
+        color: white;
+        height: 100%;
+        width: auto;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        height: auto;
+        margin-top: 1%;
+        border: 1px solid #CCC;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+</style>

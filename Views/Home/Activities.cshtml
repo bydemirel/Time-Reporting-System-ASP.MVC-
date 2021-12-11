@@ -1,0 +1,177 @@
+﻿@using VSCODEPROJECT.Controllers;
+
+@model ExtraActivitiyListView
+
+@{
+    ViewData["Title"] = "Activities";
+}
+
+@{
+    string current_user = HomeController.getCurrentUser();
+    string current_user_tag = HomeController.getCurrentUserTag();
+    string date = HomeController.getDate();
+}
+
+<div class="row" style="text-align: center; margin-top: 1.5%;">
+    <div class="col-md-10">
+        <h1 class="display-6">Current User: @current_user @current_user_tag &ensp; Year-Month: @date</h1>
+    </div>
+
+    <div class="col-md-2">
+        @using (@Html.BeginForm("SelectDayForActivities", "Home", FormMethod.Get))
+        {
+            <div>
+                <input type="submit" id="submitId" , value="Select Day" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- Add/Edit/Delete için ayrı ayrı sayfalar yap.-->
+<div class="row" style="text-align: center; margin-top: 1%; margin-bottom: 2%;">
+    <div class="col-md-3">
+        @using (@Html.BeginForm("CreateNewActivity", "Home", FormMethod.Get))
+        {
+            <div>
+                <input type="submit" id="submitId" , value="Add Activity" />
+            </div>
+        }
+    </div>
+
+    <div class="col-md-3">
+        @using (@Html.BeginForm("EditActivity", "Home", FormMethod.Get))
+        {
+            <div>
+                <input type="submit" id="submitId" , value="Edit Activity" />
+            </div>
+        }
+    </div>
+
+    <div class="col-md-3">
+        @using (@Html.BeginForm("DeleteActivity", "Home", FormMethod.Get))
+        {
+            <div>
+                <input type="submit" id="submitId" , value="Delete Activity" />
+            </div>
+        }
+    </div>
+
+    <div class="col-md-3">
+        @using (@Html.BeginForm("Details", "Home", FormMethod.Get))
+        {
+            <div>
+                <input type="submit" id="submitId" , value="Details" />
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="row" style="text-align: center; margin-top: 8%;">
+    <div class="col-md-6" style="margin-top: 0%;">
+        <div class="container" style="margin-bottom: 0%;">
+            <b>Your Current Day Activities</b>
+            <hr style="position: relative; bottom: 5px; margin-top: 2%; margin-bottom: 0%;">
+            </hr>
+        </div>
+        <table class="table">
+
+            @if (ViewBag.haveCurrentDayActivities)
+            {
+                <tr>
+                    <th>Date</th>
+                    <th>Project Code</th>
+                    <th>Working Time</th>
+                    <th>Description</th>
+                </tr>
+
+                @foreach (var item in Model.currentDayActivityList)
+                {
+
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.Time)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>@ViewBag.currentDayMessage</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="col-md-6" style="margin-top: 0%;">
+        <div class="container" style="margin-bottom: 0%;">
+            <b>Total Time Spent on Your All Activities</b>
+            <hr style="position: relative; bottom: 5px; margin-top: 2%; margin-bottom: 0%;">
+            </hr>
+        </div>
+        <table class="table">
+            @if (ViewBag.haveTotalTimeSpentActivities)
+            {
+                <tr>
+                    <th>Date</th>
+                    <th>Project Code</th>
+                    <th>Working Time</th>
+                    <th>Description</th>
+                </tr>
+
+                @foreach (var item in Model.totalTimeSpentList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(ModelItem => item.Date)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Time)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>@ViewBag.totalTimeSpentMessage</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<style>
+    #submitId:hover {
+        background-color: #3557db;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+
+    #submitId {
+        background-color: #0066ff;
+        text-decoration: white;
+        color: white;
+        height: 100%;
+        width: auto;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        height: auto;
+        margin-top: 1%;
+        border: 1px solid #CCC;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+</style>

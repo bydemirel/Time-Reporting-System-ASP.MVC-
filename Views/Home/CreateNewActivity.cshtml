@@ -1,0 +1,195 @@
+@using VSCODEPROJECT.Controllers
+
+@model Activities
+
+@{
+    ViewData["Title"] = "Create New Activity";
+    Layout = null;
+}
+
+@{
+    string current_user = HomeController.getCurrentUser();
+    string current_user_tag = HomeController.getCurrentUserTag();
+    string date = HomeController.getDate();
+}
+
+@{
+    // Take the getActiveProjects() list item and put these items to the DropDownList
+    List<Project> comboBoxValues = HomeController.getProjects();
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    for (int i = 0; i < comboBoxValues.Count(); i++)
+    {
+        string item = comboBoxValues[i].Code;
+        listItems.Add(new SelectListItem() { Text = item });
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VSCODEPROJECT.styles.css" asp-append-version="true" />
+
+</head>
+
+<body>
+
+    <div class="container" style="font-size: large; margin-bottom: 8%;">
+        <main role="main" class="pb-3">
+
+            <div class="text-center" style="margin-top: 1.5%">
+                <h1 class="display-6">Current User: @current_user @current_user_tag Year-Month: @date</h1>
+            </div>
+            
+            @using (Html.BeginForm("getNewActivity", "Home", FormMethod.Post))
+    {
+
+    <div class="text-center">
+
+        <div class="row" style="text-align: center; margin-top: 3%; justify-content: center;">
+            <div class="col-md-2" style="width: 205px;">
+                <div style="float: right;"><b>Project Code:</b></div>
+            </div>
+
+            <div class="col-md-2">
+                <div>@Html.DropDownListFor(m => m.Code,listItems, new{ style = "width: 188px; height: 30px;"})</div>
+            </div>
+        </div>
+
+        <div class="row" style="text-align: center; margin-top: 1%; justify-content: center;">
+            <div class="col-md-2" style="width: 205px;">
+                <div style="float: right;"><b>Date:</b></div>
+            </div>
+
+            <div class="col-md-2">
+                <div>@Html.TextBoxFor(Model => Model.Date,new { id="SelectedDate", style = "width: 188px; height: 30px;",
+                @readonly = "readonly" })</div>
+
+            </div>
+        </div>
+
+        <!-- Bootstrap -->
+        <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+        <script type="text/javascript"
+        src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+        <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+        media="screen" />
+        <!-- Bootstrap -->
+
+        <!-- Bootstrap DatePicker -->
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css"
+        type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"
+        type="text/javascript"></script>
+
+        <!-- Bootstrap DatePicker -->
+        <script type="text/javascript">
+            $(function () {
+                $('#SelectedDate').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    format: "yyyy-mm-dd",
+                    language: "tr"
+                });
+            });
+        </script>
+
+
+
+        <div class="row" style="text-align: center; margin-top: 1%; justify-content: center;">
+            <div class="col-md-2" style="width: 205px;">
+                <div style="float: right;"><b>Working Time:</b></div>
+            </div>
+
+            <div class="col-md-2">
+                <div>@Html.TextBoxFor(Model=> Model.Time, new{ style = "width: 188px; height: 30px;", @type = "number"})
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row" style="text-align: center; margin-top: 1%; justify-content: center;">
+            <div class="col-md-2" style="width: 205px;">
+                <div style="float: right;"><b>Description:</b></div>
+            </div>
+
+            <div class="col-md-2">
+                <div>@Html.TextBoxFor(Model=> Model.Description, new{ style = "width: 188px; height: 30px;"})</div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+        <div class="row" style="text-align: center; margin-top: 1%; justify-content: center;">
+            <div class="col-md-12">
+                <input type="submit" id="submitId" , value="Create" />
+
+                @using (Html.BeginForm("Activities", "Home", FormMethod.Get))
+                {
+                    <input type="submit" id="cancelButtonId" value="Cancel" />
+                }
+            </div>
+        </div>
+        
+    }
+        </main>
+    </div>
+
+    <style>
+        #submitId:hover {
+            background-color: #3366cc;
+        }
+
+        #submitId {
+            background-color: #0066ff;
+            text-decoration: white;
+            color: white;
+            width: auto;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            height: auto;
+            margin-top: 1%;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+
+        #cancelButtonId:hover {
+            background-color: #a1a1a1;
+        }
+
+        #cancelButtonId {
+            background-color: #b0aeae;
+            text-decoration: white;
+            color: white;
+            width: auto;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            height: auto;
+            margin-top: 1%;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+    </style>
+
+</body>
+
+</html>
